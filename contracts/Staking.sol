@@ -57,7 +57,7 @@ contract Staking{
     }
 
     function calculateInterest (uint basisPoints, uint numDays, uint weiAmount) private pure returns (uint) {
-        return basisPoints /10000 * weiAmount; //700 /10000 => 0.07
+        return (basisPoints * weiAmount) /10000 ; //700 /10000 => 0.07
 
     }
 
@@ -98,7 +98,7 @@ contract Staking{
 
         if(block.timestamp > positions[positionId].unlockDate){
             uint amount = positions[positionId].weiStaked + positions[positionId].weiInterest;
-            payable(msg.sender).call{value: amoungt}("");
+            payable(msg.sender).call{value: amount}("");
         }else{
             payable(msg.sender).call{value:positions[positionId].weiStaked}("");
         }
